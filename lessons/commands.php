@@ -34,4 +34,16 @@
  *      $company = Company::find(1)
  *      $company->delete()
  *      Company::destroy(11)
- *      Company::destroy([7, 8, 9])*/
+ *      Company::destroy([7, 8, 9])
+ *
+ * 13.  php artisan tinker
+ *      use App\Models\Company
+ *      $data = ["name" => "Company 15", "address" => "address", "email" => "test@gmail.com", "website" => "https://company15.com"]
+ *      Company::create($data)
+ *      $data = ["name" => "Company 15", "address" => "address", "email" => "test@gmail.com", "website" => "https://company15.com", "contact" => "contact company 15"]
+ *      Company::create($data)
+ *      $data = ["name" => "Company 15", "address" => "address", "email" => "test@gmail.com", "website" => "https://company15.com", "contact" => "contact company 15"]
+ *      Company::create($data)
+ *      $company = Company::first()
+ *      $company->update($data)
+ * */
