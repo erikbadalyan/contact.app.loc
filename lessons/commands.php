@@ -46,4 +46,4 @@
  *      Company::create($data)
  *      $company = Company::first()
  *      $company->update($data)
- * */
+ *      php artisan make:model Contact -m*/
