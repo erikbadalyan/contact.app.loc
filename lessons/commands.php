@@ -7,4 +7,7 @@
  * 4.   php artisan make:migration create_companies_table
  * 5.   php artisan migrate
  * 6.   php artisan migrate:rollback
- * 7.   php artisan migrate:rollback*/
+ * 7.   php artisan migrate:rollback
+ * 8.   php artisan make:seeder CompaniesTableSeeder
+ * 9.   php artisan db:seed --class=CompaniesTableSeeder
+ * 10.  php artisan db:seed*/
