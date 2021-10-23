@@ -105,4 +105,13 @@ $company->contacts()->delete()
 $company->contacts
 $company->load('contacts')
 $company->contacts
+
+php artisan make:factory ContactFactory (-m Contact)/(--model=Contact)
+php artisan tinker
+use App\Models\Contact
+Contact::factory()->count(10)->create()
+Contact::factory()->count(10)->make()
+php artisan make:seeder CotactsTableSeeder
+composer dump-autoload
+php artisan db:seed
 */
