@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        Company::factory()->count(10)->create();
-        Contact::factory()->count(50)->create();
+        Company::factory()->count(10)->create()->each(function ($company) {
+            $company->contacts()->saveMany(
+                Contact::factory()->count(rand(5, 10))->make()
+            );
+        });
+
     }
 }
