@@ -41,7 +41,7 @@
                                         <td>{{ $contact->email }}</td>
                                         <td>{{ $contact->company->name }}</td>
                                         <td width="150">
-                                            <a href="show.html" class="btn btn-sm btn-circle btn-outline-info"
+                                            <a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-sm btn-circle btn-outline-info"
                                                title="Show">
                                                 <i class="fa fa-eye"></i>
                                             </a>
