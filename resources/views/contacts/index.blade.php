@@ -60,7 +60,7 @@
                             @endif
                             </tbody>
                         </table>
-                        {{ $contacts->links('pagination::bootstrap-4') }}
+                        {{ $contacts->appends(request()->only('company_id'))->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>
