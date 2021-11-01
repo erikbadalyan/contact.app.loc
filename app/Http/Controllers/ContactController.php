@@ -10,7 +10,8 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $companies = Company::orderBy('name')->pluck('name', 'id')->prepend('All Companies');
+        $companies = Company::orderBy('name')->pluck('name', 'id')
+                            ->prepend('All Companies', '');
         $contacts = Contact::orderBy('first_name', 'asc')->where(function($query){
                                 if($companyId = request('company_id')) {
                                     $query->where('company_id', $companyId);
@@ -21,6 +22,16 @@ class ContactController extends Controller
 
     public function create()
     {
+        $companies = Company::orderBy('name')->pluck('name', 'id')
+                            ->prepend('All Companies', '');
+        return view('contacts.create', compact('companies'));
+    }
+
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        // dd($request->only('first_name', 'last_name'));
+        // dd($request->except('first_name', 'last_name'));
         return view('contacts.create');
     }
 
