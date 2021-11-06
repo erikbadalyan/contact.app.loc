@@ -1,5 +1,8 @@
-let selectBox = document.querySelector('#filter_company_id');
-let deleteContactBtn = document.querySelectorAll('.btn-delete');
+let selectBox = document.querySelector('#filter_company_id'),
+    deleteContactBtn = document.querySelectorAll('.btn-delete'),
+    btnClear = document.querySelector('#btn-clear'),
+    input = document.querySelector('#search');
+
 if (selectBox) {
     selectBox.addEventListener('change', function () {
         let companyId = this.value || this.options[this.selectedIndex].value;
@@ -18,4 +21,23 @@ deleteContactBtn.forEach(function (button){
         }
     });
 });
+
+btnClear.addEventListener('click', function () {
+    input.value = "";
+    selectBox.selectedIndex = 0;
+    window.location.href = window.location.href.split('?')[0];
+});
+
+let toggleClearButton = () => {
+    let query = location.search,
+        pattern = /[?&]search=/;
+
+    if (pattern.test(query)) {
+        btnClear.style.display = 'block';
+    } else {
+        btnClear.style.display = 'none';
+    }
+}
+
+toggleClearButton();
 
