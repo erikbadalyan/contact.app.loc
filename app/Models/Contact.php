@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Scopes\ContactSearchScope;
 use App\Scopes\FilterScope;
-use App\Scopes\SearchScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +41,8 @@ class Contact extends Model
 
     protected $fillable = ["first_name", "last_name", "email", "address", "phone", "company_id"];
 
+    public $filterColumns = ['company_id'];
+
     public function company()
     {
         return $this->belongsTo(Company::class);
@@ -54,6 +56,6 @@ class Contact extends Model
     {
         parent::boot();
         static::addGlobalScope(new FilterScope());
-        static::addGlobalScope(new SearchScope());
+        static::addGlobalScope(new ContactSearchScope());
     }
 }
