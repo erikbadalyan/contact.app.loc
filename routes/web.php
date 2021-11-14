@@ -18,14 +18,38 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
-Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
-Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
-Route::get('/contacts/{id}', [ContactController::class, 'show'])->name('contacts.show');
-Route::put('/contacts/{id}', [ContactController::class, 'update'])->name('contacts.update');
-Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
-Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+    Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+    Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
+    Route::get('/contacts/{id}', [ContactController::class, 'show'])->name('contacts.show');
+    Route::put('/contacts/{id}', [ContactController::class, 'update'])->name('contacts.update');
+    Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
+    Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+});
 
-Auth::routes();
+//Route::get('/contacts', [ContactController::class, 'index'])
+//        ->name('contacts.index')
+//        ->middleware('auth');
+//Route::post('/contacts', [ContactController::class, 'store'])
+//        ->name('contacts.store')
+//        ->middleware('auth');
+//Route::get('/contacts/create', [ContactController::class, 'create'])
+//        ->name('contacts.create')
+//        ->middleware('auth');
+//Route::get('/contacts/{id}', [ContactController::class, 'show'])
+//        ->name('contacts.show')
+//        ->middleware('auth');
+//Route::put('/contacts/{id}', [ContactController::class, 'update'])
+//        ->name('contacts.update')
+//        ->middleware('auth');
+//Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])
+//        ->name('contacts.edit')
+//        ->middleware('auth');
+//Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])
+//        ->name('contacts.destroy')
+//        ->middleware('auth');
+
+Auth::routes(['verify' => true]);
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
