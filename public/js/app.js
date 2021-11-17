@@ -15,7 +15,7 @@ deleteContactBtn.forEach(function (button){
         event.preventDefault();
         if (confirm('Are you sure?')) {
             let action = this.getAttribute('href');
-            let form = document.querySelector('#form-delete')
+            let form = document.querySelector('#form-delete');
             form.setAttribute('action', action);
             form.submit();
         }
@@ -37,7 +37,7 @@ let toggleClearButton = () => {
     } else {
         btnClear.style.display = 'none';
     }
-}
+};
 
 toggleClearButton();
 
