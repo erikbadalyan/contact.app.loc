@@ -6,6 +6,7 @@ use App\Scopes\ContactSearchScope;
 use App\Scopes\FilterScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 /**
  * App\Models\Contact
@@ -39,7 +40,15 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["first_name", "last_name", "email", "address", "phone", "company_id"];
+    protected $fillable = [
+        "first_name",
+        "last_name",
+        "email",
+        "address",
+        "phone",
+        "company_id",
+        "user_id"
+    ];
 
     public $filterColumns = ['company_id'];
 
@@ -57,5 +66,10 @@ class Contact extends Model
         parent::boot();
         static::addGlobalScope(new FilterScope());
         static::addGlobalScope(new ContactSearchScope());
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
