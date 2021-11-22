@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Settings\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+
+Route::get('/settings/account', [AccountController::class, 'index'])
+        ->name('settings.account');
