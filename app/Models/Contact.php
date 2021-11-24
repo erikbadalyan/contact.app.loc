@@ -7,6 +7,7 @@ use App\Scopes\FilterScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Contact
@@ -52,7 +53,10 @@ class Contact extends Model
 
     public $filterColumns = ['company_id'];
 
-    public function company()
+    /**
+     * @return BelongsTo
+     */
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
@@ -68,8 +72,16 @@ class Contact extends Model
         static::addGlobalScope(new ContactSearchScope());
     }
 
-    public function user()
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
+    // public function getRouteKeyName()
+    // {
+    //     return "first_name";
+    // }
 }

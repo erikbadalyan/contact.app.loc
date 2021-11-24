@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
@@ -45,7 +46,11 @@ class ContactController extends Controller
         return view('contacts.create', compact('companies', 'contact'));
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'first_name'    => 'required',
@@ -64,10 +69,8 @@ class ContactController extends Controller
                 ->with('message', 'Contact has been added successfully');
     }
 
-    public function edit($id)
+    public function edit(Contact $contact)
     {
-        $contact = Contact::findOrFail($id);
-
         $companies = auth()
                     ->user()
                     ->companies()
@@ -78,7 +81,12 @@ class ContactController extends Controller
         return view('contacts.edit', compact('companies', 'contact'));
     }
 
-    public function update($id, Request $request)
+    /**
+     * @param Contact $contact
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update(Contact $contact, Request $request): RedirectResponse
     {
         $request->validate([
             'first_name'    => 'required',
@@ -88,8 +96,6 @@ class ContactController extends Controller
             'company_id'    => 'required|exists:companies,id'
         ]);
 
-        $contact = Contact::findOrFail($id);
-
         $contact->update($request->all());
 
         return redirect()
@@ -98,17 +104,17 @@ class ContactController extends Controller
 
     }
 
-    public function show($id)
+    public function show(Contact $contact)
     {
-        $contact = Contact::findOrFail($id);
-
         return view('contacts.show', compact('contact'));
     }
 
-    public function destroy($id)
+    /**
+     * @param Contact $contact
+     * @return RedirectResponse
+     */
+    public function destroy(Contact $contact): RedirectResponse
     {
-        $contact = Contact::findOrFail($id);
-
         $contact->delete();
 
         return redirect()
