@@ -6,6 +6,8 @@ use App\Models\Company;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class ContactController extends Controller
 {
@@ -14,7 +16,12 @@ class ContactController extends Controller
        $this->middleware(['auth', 'verified']);
    }
 
-    public function index()
+    /**
+     * Display a listing of the Contacts.
+     *
+     * @return View
+     */
+   public function index(): View
     {
         $companies = auth()
                     ->user()
@@ -32,7 +39,12 @@ class ContactController extends Controller
         return view('contacts.index', compact('contacts', 'companies'));
     }
 
-    public function create()
+    /**
+     * Show the form for creating a new Contact.
+     *
+     * @return View
+     */
+    public function create(): View
     {
         $contact = new Contact();
 
@@ -47,6 +59,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Store a newly created contact in contacts table.
+     *
      * @param Request $request
      * @return RedirectResponse
      */
@@ -69,7 +83,13 @@ class ContactController extends Controller
                 ->with('message', 'Contact has been added successfully');
     }
 
-    public function edit(Contact $contact)
+    /**
+     * Show the form for editing the specified contact.
+     *
+     * @param  Contact  $contact
+     * @return View
+     */
+    public function edit(Contact $contact): View
     {
         $companies = auth()
                     ->user()
@@ -82,6 +102,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Update the specified contact in contacts table.
+     *
      * @param Contact $contact
      * @param Request $request
      * @return RedirectResponse
@@ -104,12 +126,20 @@ class ContactController extends Controller
 
     }
 
-    public function show(Contact $contact)
+    /**
+     * Display the specified contact.
+     *
+     * @param  Contact  $contact
+     * @return View
+     */
+    public function show(Contact $contact): View
     {
         return view('contacts.show', compact('contact'));
     }
 
     /**
+     * Remove the specified company from contacts table.
+     *
      * @param Contact $contact
      * @return RedirectResponse
      */
