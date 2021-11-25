@@ -23,12 +23,7 @@ class ContactController extends Controller
      */
    public function index(): View
     {
-        $companies = auth()
-                    ->user()
-                    ->companies()
-                    ->orderBy('name')
-                    ->pluck('name', 'id')
-                    ->prepend('All Companies', '');
+        $companies = Company::userCompanies();
 
         $contacts = auth()
                     ->user()
@@ -48,12 +43,7 @@ class ContactController extends Controller
     {
         $contact = new Contact();
 
-        $companies = auth()
-                    ->user()
-                    ->companies()
-                    ->orderBy('name')
-                    ->pluck('name', 'id')
-                    ->prepend('All Companies', '');
+        $companies = Company::userCompanies();
 
         return view('contacts.create', compact('companies', 'contact'));
     }
@@ -91,12 +81,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact): View
     {
-        $companies = auth()
-                    ->user()
-                    ->companies()
-                    ->orderBy('name')
-                    ->pluck('name', 'id')
-                    ->prepend('All Companies', '');
+        $companies = Company::userCompanies();
 
         return view('contacts.edit', compact('companies', 'contact'));
     }
