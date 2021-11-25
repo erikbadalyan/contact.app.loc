@@ -70,7 +70,6 @@ class ContactController extends Controller
      * @param  Contact  $contact
      * @return View
      */
-    // public function edit($contact): View
     public function edit(Contact $contact): View
     {
         $companies = Company::userCompanies();
