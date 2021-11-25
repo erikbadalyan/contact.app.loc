@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use App\Models\Company;
 use App\Models\Contact;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ContactController extends Controller
@@ -51,19 +50,11 @@ class ContactController extends Controller
     /**
      * Store a newly created contact in contacts table.
      *
-     * @param Request $request
+     * @param ContactRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ContactRequest $request): RedirectResponse
     {
-        $request->validate([
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'email'         => 'required|email',
-            'address'       => 'required',
-            'company_id'    => 'required|exists:companies,id'
-        ]);
-
         $request->user()
                 ->contacts()
                 ->create($request->all());
@@ -90,19 +81,11 @@ class ContactController extends Controller
      * Update the specified contact in contacts table.
      *
      * @param Contact $contact
-     * @param Request $request
+     * @param ContactRequest $request
      * @return RedirectResponse
      */
-    public function update(Contact $contact, Request $request): RedirectResponse
+    public function update(Contact $contact, ContactRequest $request): RedirectResponse
     {
-        $request->validate([
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'email'         => 'required|email',
-            'address'       => 'required',
-            'company_id'    => 'required|exists:companies,id'
-        ]);
-
         $contact->update($request->all());
 
         return redirect()
