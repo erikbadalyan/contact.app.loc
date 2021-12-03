@@ -4,10 +4,13 @@ namespace App\Models;
 
 use App\Scopes\ContactSearchScope;
 use App\Scopes\FilterScope;
+use Database\Factories\ContactFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Contact
@@ -19,23 +22,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $email
  * @property string $address
  * @property int $company_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Company $company
- * @method static \Database\Factories\ContactFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Contact newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Contact query()
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCompanyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereFirstName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLastName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Company $company
+ * @method static ContactFactory factory(...$parameters)
+ * @method static Builder|Contact newModelQuery()
+ * @method static Builder|Contact newQuery()
+ * @method static Builder|Contact query()
+ * @method static Builder|Contact whereAddress($value)
+ * @method static Builder|Contact whereCompanyId($value)
+ * @method static Builder|Contact whereCreatedAt($value)
+ * @method static Builder|Contact whereEmail($value)
+ * @method static Builder|Contact whereFirstName($value)
+ * @method static Builder|Contact whereId($value)
+ * @method static Builder|Contact whereLastName($value)
+ * @method static Builder|Contact wherePhone($value)
+ * @method static Builder|Contact whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Contact extends Model
 {
@@ -58,16 +61,15 @@ class Contact extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withoutGlobalScopes();
     }
 
     public function scopeLatestFirst($query) {
         return $query->orderBy('id', 'desc');
     }
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
         static::addGlobalScope(new FilterScope());
         static::addGlobalScope(new ContactSearchScope());
     }
@@ -79,9 +81,4 @@ class Contact extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    // public function getRouteKeyName()
-    // {
-    //     return "first_name";
-    // }
 }

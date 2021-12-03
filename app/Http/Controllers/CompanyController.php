@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 use App\Http\Requests\CompanyRequest;
 
@@ -22,6 +21,7 @@ class CompanyController extends Controller
     public function index(): View
     {
         $companies = auth()->user()->companies()->latest()->paginate(10);
+
 
         return view('companies.index', compact('companies'));
     }

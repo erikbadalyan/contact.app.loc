@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Scopes\CompanySearchScope;
 use Database\Factories\CompanyFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -60,11 +60,17 @@ class Company extends Model
         return $this->belongsTo(User::class);
     }
 
+    protected static function booted()
+    {
+        static::addGlobalScope(new CompanySearchScope());
+    }
+
     public static function userCompanies()
     {
         return auth()
                 ->user()
                 ->companies()
+                ->withoutGlobalScopes()
                 ->orderBy('name')
                 ->pluck('name', 'id')
                 ->prepend('All Companies', '');

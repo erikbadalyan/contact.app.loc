@@ -1,43 +1,53 @@
-let selectBox = document.querySelector('#filter_company_id'),
-    deleteContactBtn = document.querySelectorAll('.btn-delete'),
-    btnClear = document.querySelector('#btn-clear'),
-    input = document.querySelector('#search');
+let filterCompany = document.querySelector('#filter_company_id');
 
-if (selectBox) {
-    selectBox.addEventListener('change', function () {
+if (filterCompany) {
+    filterCompany.addEventListener('change', function () {
         let companyId = this.value || this.options[this.selectedIndex].value;
         window.location.href = window.location.href.split('?')[0] + '?company_id=' + companyId;
     });
 }
 
-deleteContactBtn.forEach(function (button){
-    button.addEventListener('click', function (event){
+document.querySelectorAll('.btn-delete').forEach((button) => {
+    button.addEventListener('click', function (event) {
         event.preventDefault();
-        if (confirm('Are you sure?')) {
+        if (confirm("Are you sure?")) {
             let action = this.getAttribute('href');
-            let form = document.querySelector('#form-delete');
+            let form = document.getElementById('form-delete');
             form.setAttribute('action', action);
             form.submit();
         }
     });
 });
 
-btnClear.addEventListener('click', function () {
-    input.value = "";
-    selectBox.selectedIndex = 0;
-    window.location.href = window.location.href.split('?')[0];
-});
+let btnClear = document.getElementById('btn-clear');
+if (btnClear) {
+    btnClear.addEventListener('click', () => {
+        let input = document.getElementById('search'),
+            select = document.getElementById('filter_company_id');
+
+        if (input) {
+            input.value = "";
+        }
+        if (select) {
+            select.selectedIndex = 0;
+        }
+
+        window.location.href = window.location.href.split('?')[0];
+    });
+}
 
 let toggleClearButton = () => {
     let query = location.search,
-        pattern = /[?&]search=/;
+        pattern = /[?&]search=/,
+        button = document.getElementById('btn-clear');
+
+    // if (!button) return;
 
     if (pattern.test(query)) {
-        btnClear.style.display = 'block';
+        button.style.display = "block";
     } else {
-        btnClear.style.display = 'none';
+        button.style.display = "none";
     }
 };
 
 toggleClearButton();
-
