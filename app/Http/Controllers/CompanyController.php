@@ -70,7 +70,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company): View
     {
-        return view('companies.show', compact('company'));
+        return view('companies.edit', compact('company'));
     }
 
     /**
@@ -98,7 +98,7 @@ class CompanyController extends Controller
         $company->delete();
 
         return redirect()
-            ->route('contacts.index')
+            ->route('companies.index')
             ->with('message', 'Contact has been deleted successfully');
     }
 }

@@ -44,15 +44,15 @@
                                             <td>{{ $company->email }}</td>
                                             <td>{{ $company->contacts()->count() }}</td>
                                             <td width="150">
-                                                <a href="{{ route('contacts.show', $company->id) }}"
+                                                <a href="{{ route('companies.show', $company->id) }}"
                                                    class="btn btn-sm btn-circle btn-outline-info" title="Show">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('contacts.edit', $company->id) }}"
+                                                <a href="{{ route('companies.edit', $company->id) }}"
                                                    class="btn btn-sm btn-circle btn-outline-secondary" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a href="{{ route('contacts.destroy', $company->id) }}"
+                                                <a href="{{ route('companies.destroy', $company->id) }}"
                                                    class="btn-delete btn btn-sm btn-circle btn-outline-danger"
                                                    title="Delete">
                                                     <i class="fa fa-times"></i>
