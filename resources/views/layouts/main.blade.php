@@ -31,8 +31,11 @@
         <div class="collapse navbar-collapse" id="navbar-toggler">
             @auth
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('companies.index') }}" class="nav-link">Companies</a></li>
-                <li class="nav-item active"><a href="{{ route('contacts.index') }}" class="nav-link">Contacts</a></li>
+                {{-- <li> {{ request()->path() }} </li> --}}
+                {{-- <li> {{ request()->segment(1) }} </li> --}}
+                {{-- <li> {{ request()->is("companies*") }} </li> --}}
+                <li class="nav-item {{ request()->is('companies*') ? 'active' : '' }}"><a href="{{ route('companies.index') }}" class="nav-link">Companies</a></li>
+                <li class="nav-item {{ request()->is('contacts*') ? 'active' : '' }}"><a href="{{ route('contacts.index') }}" class="nav-link">Contacts</a></li>
             </ul>
             @endauth
             <ul class="navbar-nav ml-auto">
