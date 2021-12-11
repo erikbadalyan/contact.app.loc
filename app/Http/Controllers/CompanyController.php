@@ -20,7 +20,7 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $companies = auth()->user()->companies()->latest()->paginate(10);
+        $companies = auth()->user()->companies()->with('contacts')->latest()->paginate(10);
 
 
         return view('companies.index', compact('companies'));

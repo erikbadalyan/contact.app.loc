@@ -27,6 +27,7 @@ class ContactController extends Controller
         $contacts = auth()
                     ->user()
                     ->contacts()
+                    ->with('company')
                     ->latestFirst()
                     ->paginate(10);
 
