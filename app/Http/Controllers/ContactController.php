@@ -24,7 +24,7 @@ class ContactController extends Controller
     {
         $companies = Company::userCompanies();
 
-        $contacts = auth()
+        $contacts = request()
                     ->user()
                     ->contacts()
                     ->with('company')

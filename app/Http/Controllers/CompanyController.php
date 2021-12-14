@@ -20,7 +20,12 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $companies = auth()->user()->companies()->with('contacts')->latest()->paginate(10);
+        $companies = request()
+                        ->user()
+                        ->companies()
+                        ->with('contacts')
+                        ->latest()
+                        ->paginate(10);
 
 
         return view('companies.index', compact('companies'));
@@ -46,9 +51,13 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request): RedirectResponse
     {
-        $request->user()->companies()->create($request->all());
+        $request->user()
+                ->companies()
+                ->create($request->all());
 
-        return redirect()->route('companies.index')->with('message', "Company has been added successfully");
+        return redirect()
+                ->route('companies.index')
+                ->with('message', "Company has been added successfully");
     }
 
     /**
@@ -84,7 +93,9 @@ class CompanyController extends Controller
     {
         $company->update($request->all());
 
-        return redirect()->route('companies.index')->with('message', "Company has been updated successfully");
+        return redirect()
+                ->route('companies.index')
+                ->with('message', "Company has been updated successfully");
     }
 
     /**
@@ -98,7 +109,7 @@ class CompanyController extends Controller
         $company->delete();
 
         return redirect()
-            ->route('companies.index')
-            ->with('message', 'Contact has been deleted successfully');
+                ->route('companies.index')
+                ->with('message', 'Contact has been deleted successfully');
     }
 }
