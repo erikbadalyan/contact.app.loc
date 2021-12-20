@@ -23,7 +23,7 @@ class CompanyController extends Controller
         $companies = request()
                         ->user()
                         ->companies()
-                        ->with('contacts')
+                        ->withCount('contacts')
                         ->latest()
                         ->paginate(10);
 

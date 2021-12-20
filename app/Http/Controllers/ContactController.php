@@ -24,12 +24,6 @@ class ContactController extends Controller
     {
         $companies = Company::userCompanies();
 
-        // $contacts = request()
-            // ->user()
-            // ->contacts()
-            // ->latestFirst()
-            // ->paginate(10);
-
         $contacts = request()
             ->user()
             ->contacts()
