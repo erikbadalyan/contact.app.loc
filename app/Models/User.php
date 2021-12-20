@@ -73,6 +73,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
+    // protected $with = ['companies', 'contacts'];
+
     /**
      * The attributes that should be cast.
      *
