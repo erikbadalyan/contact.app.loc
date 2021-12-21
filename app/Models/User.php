@@ -23,7 +23,11 @@ use Laravel\Sanctum\PersonalAccessToken;
  * App\Models\User
  *
  * @property int $id
- * @property string $name
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $company
+ * @property string $bio
+ * @property string $profile_picture
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
@@ -96,5 +100,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function companies(): HasMany
     {
         return $this->hasMany(Company::class);
+    }
+
+    public function fullName()
+    {
+        return $this->first_name . " " . $this->last_name;
     }
 }
