@@ -20,7 +20,13 @@
                 </div><!-- /.col-md-3 -->
 
                 <div class="col-md-9">
-                    <div class="card">
+                    @if($message = session('message'))
+                        <div class="alert alert-success"> {{ $message }}</div>
+                    @endif
+                    <form action="{{ route('settings.profile.update') }}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <div class="card">
                         <div class="card-header card-title">
                             <strong>Edit Profile</strong>
                         </div>
@@ -29,25 +35,36 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" name="first_name" id="first_name" class="form-control is-invalid">
-                                        <div class="invalid-feedback">
-                                            Please choose a username.
-                                        </div>
+                                        <input type="text" name="first_name" id="first_name"
+                                               class="form-control @error('first_name') is-invalid @enderror"
+                                               value="{{ old('first_name', $user->first_name) }}">
+                                        @error('first_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" name="last_name" id="last_name" class="form-control">
+                                        <input type="text" name="last_name" id="last_name"
+                                               class="form-control @error('last_name') is-invalid @enderror"
+                                               value="{{ old('last_name', $user->last_name) }}">
+                                        @error('last_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
                                         <label for="company">Company</label>
-                                        <input type="text" name="company" id="company" class="form-control">
+                                        <input type="text" name="company" id="company"
+                                               class="form-control"
+                                               value="{{ old('first_name', $user->company) }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="bio">Bio</label>
-                                        <textarea name="bio" id="biod" rows="3" class="form-control"></textarea>
+                                        <textarea name="bio" id="biod" rows="3" class="form-control">
+                                            {{ old('first_name', $user->bio) }}
+                                        </textarea>
                                     </div>
                                 </div>
                                 <div class="offset-md-1 col-md-3">
@@ -80,6 +97,7 @@
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
