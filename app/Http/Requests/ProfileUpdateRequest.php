@@ -11,7 +11,7 @@ class ProfileUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,13 +21,14 @@ class ProfileUpdateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'company' => ['nullable'],
-            'bio' => ['nullable']
+            'bio' => ['nullable'],
+            'profile_picture' => ['nullable', 'mimes:jpeg,bmp,png']
         ];
     }
 }
