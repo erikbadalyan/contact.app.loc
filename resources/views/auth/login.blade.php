@@ -14,7 +14,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" />
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"/>
                         @error('email')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -30,10 +30,10 @@
                     </div>
                     <div class="mb-3 d-flex justify-content-between align-items-center">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1" name="remember" value="true">
                             <label class="custom-control-label text-black-50" for="customCheck1">Remember me</label>
                         </div>
-                        <a href="request-reset-password.html">Forget your password?</a>
+                        <a href="{{ route('password.request') }}">Forget your password?</a>
                     </div>
                     <div class="mt-4 d-grid">
                         <button type="submit" class="btn btn-block btn-primary">Login</button>
